@@ -12,7 +12,6 @@ std::vector<int> getColonsPos(std::string tempLine)
     {
         int index = temp.find_first_of(":");
 
-        std::cout<<"index Unshifted: "+ std::to_string(index)<<std::endl;
         int tempIndex = index+1;
         temp = temp.substr(tempIndex, temp.length()-1);
         if (tempList.size() > 0)
@@ -20,7 +19,6 @@ std::vector<int> getColonsPos(std::string tempLine)
          index += tempList.at(tempList.size()-1)+1;
         }
         tempList.push_back(index);
-        std::cout<<"temp: "+ temp<<std::endl;
         }
 
     return tempList;
@@ -60,7 +58,12 @@ std::vector<int> getColonNearDigits(std::string tempLine)
    return secondaryParse;
 }
 
-//this assumes description's times are in the format - minutes::seconds only works with that format for now.
+/*
+ *
+ * Converts the colons indexs and tempLine into TimeStamps
+ * Only works with the format of minutes:seconds for now
+ *
+ */
 std::vector<TimeAlt> convertTimes(std::vector<int> indexs, std::string tempLine)
 {
     std::vector<TimeAlt> tempTimes;
@@ -73,6 +76,7 @@ std::vector<TimeAlt> convertTimes(std::vector<int> indexs, std::string tempLine)
     return tempTimes;
 }
 
+//uses system and mp3splt in order to split up the mp3 file
 bool outputAudioConversion(std::string mp3file, std::vector<TimeAlt> timeStamps)
 {
     for (int i =0; i < timeStamps.size()-1; i++)
@@ -82,11 +86,19 @@ bool outputAudioConversion(std::string mp3file, std::vector<TimeAlt> timeStamps)
     }
 }
 
-int main()
+//Order for arguments - textfile mp3file
+int main(int argc, char* argv[])
 {
-    std::cout << "Hello World!" << std::endl;
     std::cout << "Getting Colons in file"<<std::endl;
-    std::ifstream import("/home/rommac100/testingcolons/test.txt");
+    std::cout << argv[1]<<std::endl;
+
+    if (argc < 3)
+    {
+        std::cout<<"Incorrect number of arguments used make sure you point to your timestamps file and mp3"<<std::endl;
+    }
+    else{
+
+    std::ifstream import(argv[1]);
     std::string tempLine;
     std::vector<int> colonPos;
     std::vector<std::string> lines;
@@ -99,11 +111,16 @@ int main()
             lines.push_back(tempLine);
         }
 
-        //tempLine = ":::   ::: :::";d
+        //outputs the lines in the textfile
         for (std::string i : lines)
         {
             std::cout<< "line in lines: "+ i<<std::endl;
         }
+        //checks to make sure that only one line exists in the textfile
+
+        std::cout<<"lines size: "+ std::to_string(lines.size())<<std::endl;
+        if (lines.size() < 3)
+        {
         std::cout<<"lines size: "+ std::to_string(lines.size())<<std::endl;
 
         std::vector<TimeAlt> tempTimes = convertTimes(getColonNearDigits(lines.at(0)),lines.at(0));
@@ -111,15 +128,18 @@ int main()
         {
             std::cout<<i.getCommandOut()<<std::endl;
         }
-        bool success = outputAudioConversion("/home/rommac100/Downloads/One_Hour_of_Music_-_Soviet_Communist_Music[ListenVid.com].mp3",tempTimes);
-        //colonPos = getColonsPos(lines.at(0));
-        //colonPos = getColonNearDigits(lines.at(0));
-        //std::cout<<"Num of Colons: "+ std::to_string(colonPos.size())<<std::endl;
+        bool success = outputAudioConversion(argv[2],tempTimes);
+        }
+        else
+        {
+            std::cout<<"Format for textfile incorrect make sure that there is only one line"<<std::endl;
+        }
+
         import.close();
     }
     else
     {
         std::cout<<"failed to openfile, check to see if it is the right"<<std::endl;
     }
-
+}
 }
