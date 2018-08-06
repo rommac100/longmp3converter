@@ -1,0 +1,3 @@
+/home/rommac/longmp3converter/build/CMakeFiles/edit_cache.dir
+/home/rommac/longmp3converter/build/CMakeFiles/rebuild_cache.dir
+/home/rommac/longmp3converter/build/CMakeFiles/LongMP3.dir

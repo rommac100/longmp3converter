@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/rommac/longmp3converter/main.cpp
+iostream
+-
+string
+-
+vector
+-
+fstream
+-
+timealt.h
+/home/rommac/longmp3converter/timealt.h
+timealt.cpp
+/home/rommac/longmp3converter/timealt.cpp
+
+/home/rommac/longmp3converter/timealt.cpp
+timealt.h
+/home/rommac/longmp3converter/timealt.h
+
+/home/rommac/longmp3converter/timealt.h
+iostream
+-
+string
+-
+

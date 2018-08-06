@@ -2,7 +2,8 @@
 #include <string>
 #include <vector>
 #include <fstream>
-#include <timealt.h>
+#include "timealt.h"
+#include "timealt.cpp"
 std::vector<int> getColonsPos(std::string tempLine)
 {
     std::cout<<"line: "+tempLine<<std::endl;
